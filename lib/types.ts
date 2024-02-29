@@ -1,15 +1,15 @@
 export enum PieceType {
-  Pawn,
-  Rook,
-  Knight,
-  Bishop,
-  Queen,
-  King,
+  Pawn = 0,
+  Rook = 1,
+  Knight = 2,
+  Bishop = 3,
+  Queen = 4,
+  King = 5,
 }
 
 export enum PieceColor {
-  Black,
-  White,
+  Black = 0,
+  White = 1,
 }
 
 export interface ChessPiece {

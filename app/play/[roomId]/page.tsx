@@ -236,6 +236,7 @@ function PageWithContext() {
     room: roomId,
     onOpen(_event) {
       setConnectionState("connected");
+      setDisconnectedReason(null);
     },
     onClose(event) {
       setConnectionState("disconnected");
@@ -278,6 +279,7 @@ function PageWithContext() {
     },
     onError(_event) {
       setConnectionState("disconnected");
+      setDisconnectedReason("An error occurred");
     },
   });
 

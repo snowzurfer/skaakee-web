@@ -2,7 +2,8 @@ import {
   PieceColor,
   type WelcomeMessage,
   type Chessboard,
-  type PlayerConnectionMessage, // Assume this is a type you define for connection/disconnection messages
+  type PlayerConnectionMessage,
+  type PieceMovementMessage, // Assume this is a type you define for connection/disconnection messages
 } from "@/lib/types";
 import { initializeChessBoard } from "@/lib/utils";
 import type * as Party from "partykit/server";
@@ -98,11 +99,16 @@ export default class Server implements Party.Server {
   onMessage(message: string, sender: Party.Connection) {
     console.log(`connection ${sender.id} sent message: ${message}`);
 
-    const parsedMessage = JSON.parse(message);
-    switch (parsedMessage.type) {
+    const data = JSON.parse(message);
+    switch (data.type) {
       case "pieceMovement":
-        console.log("received piece movement message", parsedMessage);
-        this.room.broadcast(message, [sender.id]); // Broadcast the movement to other players
+        const movementMessage = data as PieceMovementMessage;
+        console.log("received piece movement message", data);
+        // Save it to the chessboard
+        this.chessboard[movementMessage.pieceUuid].position =
+          movementMessage.position;
+        // Broadcast the movement to other players
+        this.room.broadcast(message, [sender.id]);
         break;
     }
   }

@@ -9,7 +9,7 @@ interface GameState {
   roomId: string;
   connectionState: ConnectionState;
   disconnectionReason: string | null;
-  setDisconnectionReason: (reason: string) => void;
+  setDisconnectionReason: (reason: string | null) => void;
   setConnectionState: (state: ConnectionState) => void;
   chessboard: Chessboard;
   color: PieceColor | null;
